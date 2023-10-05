@@ -99,6 +99,37 @@ class LinkedList {
     }
     return stringValue;
   }
+
+  insertAt(value, index) {
+    // Inserts a new node with the provided value at the given index.
+    let temp = this.listHead;
+    let currentIndex = 0;
+    let prevNode;
+    while (currentIndex <= index) {
+      if (currentIndex === index - 1) {
+        prevNode = temp.nextNode;
+        temp.nextNode = new Node(value);
+      }
+      if (currentIndex === index) temp.nextNode = prevNode;
+      temp = temp.nextNode;
+      currentIndex++;
+    }
+  }
+
+  removeAt(index) {
+    // Removes the node at the given index.
+    if (this.listHead == null) return "Empty List";
+    let current = this.listHead;
+    let currentIndex = 0;
+    let previous = null;
+    while (currentIndex < index) {
+      previous = current;
+      current = current.nextNode;
+      if (current == null) return "This index does not exist";
+      currentIndex++;
+    }
+    previous.nextNode = current.nextNode;
+  }
 }
 
 class Node {
@@ -116,8 +147,11 @@ fruitList.prepend("Apple");
 fruitList.append("Cantaloupe");
 fruitList.append("Date");
 fruitList.append("Elderberry");
-console.log(`Size: ${fruitList.printSize()}`);
+fruitList.insertAt("Zucchini", 3);
 console.log(`String: ${fruitList.toString()}`);
+fruitList.removeAt(3);
+console.log(`String: ${fruitList.toString()}`);
+console.log(`Size: ${fruitList.printSize()}`);
 console.log(`Head: ${fruitList.printHead()}`);
 console.log(`Tail: ${fruitList.printTail()}`);
 console.log(`Index 2 has a value of: ${fruitList.at(2)}`);
